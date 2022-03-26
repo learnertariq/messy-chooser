@@ -5,7 +5,7 @@ const Products = ({ onAddToCart, laptops }) => {
 
 
   return (
-    <div className="row row-cols-1 row-cols-md-3 g-2">
+    <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2">
       {laptops.map((laptop) => {
         return (
           <div key={laptop.id} className="">
