@@ -1,6 +1,5 @@
 import React from "react";
 import CartItem from "./CartItem";
-import CustomAlert from "./CustomAlert";
 import Swalert from "./Swalert";
 
 const Cart = ({
