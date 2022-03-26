@@ -2,9 +2,9 @@ import React from 'react';
 
 const Header = () => {
   return (
-    <header className='text-center'>
+    <header className='text-center mt-3'>
         <h1 className='text-success'>Messy Chooser</h1>
-        <h2 className='text-warning'>Choose any 4 items</h2>
+        <h4 className='text-muted'>Choose any 4 items</h4>
       </header>
   );
 };
