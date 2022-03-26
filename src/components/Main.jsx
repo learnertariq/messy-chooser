@@ -5,6 +5,7 @@ import Products from "./Products";
 const Main = () => {
   const [laptops, setLaptops] = useState([]);
   const [selectedLaptops, setSelectedLaptops] = useState([]);
+  const [customAlert, setCustomAlert] = useState(null);
 
   const loadLaptops = async () => {
     const res = await fetch("data.json");
@@ -24,7 +25,6 @@ const Main = () => {
     const newlySelectedLaptops = [...selectedLaptops, newlySelectedLaptop];
 
     toggleSelectionInMainLaptopsArray(newlySelectedLaptops);
-
     setSelectedLaptops(newlySelectedLaptops);
   };
 
@@ -33,13 +33,18 @@ const Main = () => {
     const chosenLaptop = selectedLaptops[index];
 
     chosenLaptop
-      ? alert(`you can buy ${chosenLaptop.name} with $${chosenLaptop.price}`)
-      : alert(`Your cart is empty`);
+      ? setCustomAlert({
+          text: `you can buy ${chosenLaptop.name} with $${chosenLaptop.price}`,
+          type: "alert-success",
+          img: chosenLaptop.img,
+        })
+      : setCustomAlert(null);
   };
 
   const handleChooseAgain = () => {
     toggleSelectionInMainLaptopsArray([]);
     setSelectedLaptops([]);
+    setCustomAlert(null);
   };
 
   const handleDeleteOneCartItem = (id) => {
@@ -48,27 +53,29 @@ const Main = () => {
     );
 
     toggleSelectionInMainLaptopsArray(laptopsWithoutDeleted);
-
     setSelectedLaptops(laptopsWithoutDeleted);
   };
 
   return (
-    <div className="row container mx-auto mt-5 g-3 position-relative">
-      <div className="col-12 col-md-8 order-2 order-md-1">
-        <Products onAddToCart={handleAddToCart} laptops={laptops} />
+    <>
+      <div className="row container mx-auto mt-5 g-3 position-relative">
+        <div className="col-12 col-md-8 order-2 order-md-1">
+          <Products onAddToCart={handleAddToCart} laptops={laptops} />
+        </div>
+        <div
+          className="col-12 col-md-4 order-1 order-md-2 sticky-md-top"
+          style={styles.cartContainer}
+        >
+          <Cart
+            customAlert={customAlert}
+            selectedLaptops={selectedLaptops}
+            onChooseOne={handleChooseOne}
+            onChooseAgain={handleChooseAgain}
+            onDelete={handleDeleteOneCartItem}
+          />
+        </div>
       </div>
-      <div
-        className="col-12 col-md-4 order-1 order-md-2 sticky-md-top"
-        style={styles.cartContainer}
-      >
-        <Cart
-          selectedLaptops={selectedLaptops}
-          onChooseOne={handleChooseOne}
-          onChooseAgain={handleChooseAgain}
-          onDelete={handleDeleteOneCartItem}
-        />
-      </div>
-    </div>
+    </>
   );
 
   function toggleSelectionInMainLaptopsArray(currentlySelectedLaptops) {
