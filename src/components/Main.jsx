@@ -53,11 +53,14 @@ const Main = () => {
   };
 
   return (
-    <div className="row container mx-auto mt-5 g-3">
+    <div className="row container mx-auto mt-5 g-3 position-relative">
       <div className="col-12 col-md-8 order-2 order-md-1">
         <Products onAddToCart={handleAddToCart} laptops={laptops} />
       </div>
-      <div className="col-12 col-md-4 order-1 order-md-2">
+      <div
+        className="col-12 col-md-4 order-1 order-md-2 sticky-md-top"
+        style={styles.cartContainer}
+      >
         <Cart
           selectedLaptops={selectedLaptops}
           onChooseOne={handleChooseOne}
@@ -107,6 +110,10 @@ const Main = () => {
     }
     return false;
   }
+};
+
+const styles = {
+  cartContainer: { height: "100%", top: "50px" },
 };
 
 export default Main;
