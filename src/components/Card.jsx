@@ -13,6 +13,7 @@ const Card = ({laptop: { id, name, price, img }, onAddToCart}) => {
           className="btn btn-primary"
         >
           Add to cart
+          <i className="fas fa-shopping-cart text-warning"></i>
         </button>
       </div>
     </div>
