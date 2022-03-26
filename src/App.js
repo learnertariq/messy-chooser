@@ -8,6 +8,7 @@ function App() {
     <div>
       <Header/>
       <Main/>
+      <hr />
       <QnA />
     </div>
   );

@@ -26,18 +26,27 @@ const qnaData = [
   },
   {
     q: "How useState works",
-    a: [""],
+    a: [
+      "Before React v16 we could not use states in a functional components, but now useState hooks allows us to use state in a functional component",
+      "useState hooks function is called with a initial state, ant it returns an array of 2 variables. One is to access the state and another is to set the state",
+      "In a class component state is declared using this.state, but in a functional component useState hook can handle the functionality of the state of a component.",
+      "There are many hooks used in React to make the logic of application simple. useState hook make to store the state data in a simpler way",
+      "By using useState hook react virtual DOM can quick identify the changes in the dom and apply only the changes efficiently",
+    ],
   },
 ];
 
 const QnA = () => {
   return (
-    <section className="container">
-      <h2 className="text-center">FAQ for this Assignment :)</h2>
-      <div className="qna-container row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
+    <section className="container mt-5">
+      <h2 className="text-center text-success">FAQ for this Assignment :)</h2>
+      <div className="qna-container row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 mt-3">
         {qnaData.map((item) => (
           <div className="col">
-            <article className="qna border border-success rounded shadow">
+            <article
+              style={styles.article}
+              className="qna border border-success rounded shadow"
+            >
               <div
                 style={styles.qContainer}
                 className="q-container d-flex align-items-center justify-content-between bg-light p-3"
@@ -75,6 +84,7 @@ const styles = {
     textAlign: "justify",
     textJustify: "inter-word",
   },
+  article: { height: "100%" },
 };
 
 export default QnA;
