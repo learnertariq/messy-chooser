@@ -5,7 +5,7 @@ import Products from "./Products";
 const Main = () => {
   const [laptops, setLaptops] = useState([]);
   const [selectedLaptops, setSelectedLaptops] = useState([]);
-  const [customAlert, setCustomAlert] = useState(null);
+  const [swAlert, setSwAlert] = useState(null);
 
   const loadLaptops = async () => {
     const res = await fetch("data.json");
@@ -18,6 +18,7 @@ const Main = () => {
   }, []);
 
   const handleAddToCart = (id) => {
+    setSwAlert(null);
     if (isMoreThan4Item()) return;
     if (isDuplicate(id)) return;
 
@@ -29,25 +30,35 @@ const Main = () => {
   };
 
   const handleChooseOne = () => {
+    setSwAlert(null);
+
+    if (!selectedLaptops.length)
+      return setSwAlert({
+        title: <strong className="text-danger">Error</strong>,
+        html: `<i>You cannot choose when cart is empty</i>`,
+        icon: "error",
+      });
+
     const index = getRandomIndex();
     const chosenLaptop = selectedLaptops[index];
 
     chosenLaptop
-      ? setCustomAlert({
-          text: `you can buy ${chosenLaptop.name} with $${chosenLaptop.price}`,
-          type: "alert-success",
-          img: chosenLaptop.img,
+      ? setSwAlert({
+          title: <strong className="text-success">Hurraaaay!!!</strong>,
+          html: `You can buy <strong> ${chosenLaptop.name} with $${chosenLaptop.price} </strong>`,
+          icon: "success",
         })
-      : setCustomAlert(null);
+      : setSwAlert(null);
   };
 
   const handleChooseAgain = () => {
+    setSwAlert(null);
     toggleSelectionInMainLaptopsArray([]);
     setSelectedLaptops([]);
-    setCustomAlert(null);
   };
 
   const handleDeleteOneCartItem = (id) => {
+    setSwAlert(null);
     const laptopsWithoutDeleted = selectedLaptops.filter(
       (laptop) => laptop.id !== id
     );
@@ -67,7 +78,7 @@ const Main = () => {
           style={styles.cartContainer}
         >
           <Cart
-            customAlert={customAlert}
+            swAlert={swAlert}
             selectedLaptops={selectedLaptops}
             onChooseOne={handleChooseOne}
             onChooseAgain={handleChooseAgain}
@@ -104,7 +115,11 @@ const Main = () => {
 
   function isDuplicate(id) {
     if (selectedLaptops.find((laptop) => laptop.id === id)) {
-      alert("you cannot select the product twice");
+      setSwAlert({
+        title: <strong className="text-danger">"Warning"</strong>,
+        html: "you cannot select a product twice",
+        icon: "error",
+      });
       return true;
     }
     return false;
@@ -112,7 +127,11 @@ const Main = () => {
 
   function isMoreThan4Item() {
     if (selectedLaptops.length >= 4) {
-      alert("you cannot select more than 4 laptops");
+      setSwAlert({
+        title: <strong className="text-danger">"Warning"</strong>,
+        html: "you cannot select more than 4 laptops",
+        icon: "error",
+      });
       return true;
     }
     return false;

@@ -1,17 +1,24 @@
 import React from "react";
 import CartItem from "./CartItem";
 import CustomAlert from "./CustomAlert";
+import Swalert from "./Swalert";
 
 const Cart = ({
   selectedLaptops,
   onChooseOne,
   onChooseAgain,
   onDelete,
-  customAlert,
+  swAlert,
 }) => {
   return (
     <>
-      <CustomAlert customAlert={customAlert}/>
+      {swAlert && (
+        <Swalert fire
+          title={swAlert.title}
+          html={swAlert.html}
+          icon={swAlert.icon}
+        />
+      )}
       <div className="border border-success rounded p-2">
         <h2>Selected Laptops</h2>
         <hr />
