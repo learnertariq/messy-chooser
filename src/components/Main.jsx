@@ -34,6 +34,13 @@ const Main = () => {
     setSelectedLaptops([]);
   };
 
+  const handleDeleteOneCartItem = (id) => {
+    const laptopsWithoutDeleted = selectedLaptops.filter(
+      (laptop) => laptop.id !== id
+    );
+    setSelectedLaptops(laptopsWithoutDeleted);
+  };
+
   return (
     <div className="row container mx-auto mt-5 g-3">
       <div className="col-12 col-md-8 order-2 order-md-1">
@@ -44,6 +51,7 @@ const Main = () => {
           selectedLaptops={selectedLaptops}
           onChooseOne={handleChooseOne}
           onChooseAgain={handleChooseAgain}
+          onDelete={handleDeleteOneCartItem}
         />
       </div>
     </div>

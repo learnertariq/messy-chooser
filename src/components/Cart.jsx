@@ -1,7 +1,7 @@
 import React from "react";
 import CartItem from "./CartItem";
 
-const Cart = ({ selectedLaptops, onChooseOne, onChooseAgain }) => {
+const Cart = ({ selectedLaptops, onChooseOne, onChooseAgain, onDelete }) => {
   return (
     <div className="border border-success rounded p-2">
       <h2>Selected Laptops</h2>
@@ -12,7 +12,7 @@ const Cart = ({ selectedLaptops, onChooseOne, onChooseAgain }) => {
         style={cartStyles.selectedProductsContainer}
       >
         {selectedLaptops.map((laptop) => (
-          <CartItem key={laptop.id} name={laptop.name} img={laptop.img} />
+          <CartItem key={laptop.id} laptop={laptop} onDelete={onDelete} />
         ))}
       </div>
 
