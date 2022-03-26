@@ -21,16 +21,24 @@ const Main = () => {
     if (isDuplicate(id)) return;
 
     const newlySelectedLaptop = laptops.find((laptop) => laptop.id === id);
-    setSelectedLaptops([...selectedLaptops, newlySelectedLaptop]);
+    const newlySelectedLaptops = [...selectedLaptops, newlySelectedLaptop];
+
+    toggleSelectionInMainLaptopsArray(newlySelectedLaptops);
+
+    setSelectedLaptops(newlySelectedLaptops);
   };
 
   const handleChooseOne = () => {
     const index = getRandomIndex();
     const chosenLaptop = selectedLaptops[index];
-    alert(`you can buy ${chosenLaptop.name} with $${chosenLaptop.price}`);
+
+    chosenLaptop
+      ? alert(`you can buy ${chosenLaptop.name} with $${chosenLaptop.price}`)
+      : alert(`Your cart is empty`);
   };
 
   const handleChooseAgain = () => {
+    toggleSelectionInMainLaptopsArray([]);
     setSelectedLaptops([]);
   };
 
@@ -38,6 +46,9 @@ const Main = () => {
     const laptopsWithoutDeleted = selectedLaptops.filter(
       (laptop) => laptop.id !== id
     );
+
+    toggleSelectionInMainLaptopsArray(laptopsWithoutDeleted);
+
     setSelectedLaptops(laptopsWithoutDeleted);
   };
 
@@ -56,6 +67,25 @@ const Main = () => {
       </div>
     </div>
   );
+
+  function toggleSelectionInMainLaptopsArray(currentlySelectedLaptops) {
+    const ids = getIds(currentlySelectedLaptops);
+    const newLaptops = [];
+
+    laptops.forEach((laptop) => {
+      laptop.selected = ids.includes(laptop.id);
+
+      newLaptops.push(laptop);
+    });
+
+    setLaptops(newLaptops);
+  }
+
+  function getIds(arr) {
+    const arrayOfIds = [];
+    arr.forEach((laptop) => arrayOfIds.push(laptop.id));
+    return arrayOfIds;
+  }
 
   function getRandomIndex() {
     const number = selectedLaptops.length;

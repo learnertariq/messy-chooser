@@ -1,6 +1,6 @@
 import React from "react";
 
-const Card = ({laptop: { id, name, price, img }, onAddToCart}) => {
+const Card = ({laptop: { id, name, price, img, selected }, onAddToCart}) => {
   return (
     <div className="card" style={cardStyles.card}>
       <img style={cardStyles.img} className="card-img-top" src={img} alt={name} />
@@ -11,9 +11,10 @@ const Card = ({laptop: { id, name, price, img }, onAddToCart}) => {
           style={cardStyles.btn}
           href="#"
           className="btn btn-primary"
+          disabled={selected ? selected : false}
         >
           Add to cart
-          <i className="fas fa-shopping-cart text-warning"></i>
+          <i className="fas fa-shopping-cart text-warning ms-2"></i>
         </button>
       </div>
     </div>
