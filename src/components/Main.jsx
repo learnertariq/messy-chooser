@@ -17,13 +17,21 @@ const Main = () => {
   }, []);
 
   const handleAddToCart = (id) => {
-    console.log(id);
-
     if (isMoreThan4Item()) return;
     if (isDuplicate(id)) return;
 
     const newlySelectedLaptop = laptops.find((laptop) => laptop.id === id);
     setSelectedLaptops([...selectedLaptops, newlySelectedLaptop]);
+  };
+
+  const handleChooseOne = () => {
+    const index = getRandomIndex();
+    const chosenLaptop = selectedLaptops[index];
+    alert(`you can buy ${chosenLaptop.name} with $${chosenLaptop.price}`);
+  };
+
+  const handleChooseAgain = () => {
+    setSelectedLaptops([]);
   };
 
   return (
@@ -32,10 +40,19 @@ const Main = () => {
         <Products onAddToCart={handleAddToCart} laptops={laptops} />
       </div>
       <div className="col-12 col-md-4 order-1 order-md-2">
-        <Cart selectedLaptops={selectedLaptops} />
+        <Cart
+          selectedLaptops={selectedLaptops}
+          onChooseOne={handleChooseOne}
+          onChooseAgain={handleChooseAgain}
+        />
       </div>
     </div>
   );
+
+  function getRandomIndex() {
+    const number = selectedLaptops.length;
+    return Math.floor(Math.random() * number);
+  }
 
   function isDuplicate(id) {
     if (selectedLaptops.find((laptop) => laptop.id === id)) {
@@ -50,7 +67,6 @@ const Main = () => {
       alert("you cannot select more than 4 laptops");
       return true;
     }
-
     return false;
   }
 };

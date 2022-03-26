@@ -6,7 +6,7 @@ const Card = ({laptop: { id, name, price, img }, onAddToCart}) => {
       <img style={cardStyles.img} className="card-img-top" src={img} alt={name} />
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
-        <p className="card-text">{price}</p>
+        <p className="card-text fw-bold text-success fs-3">${price}</p>
         <button onClick={() => onAddToCart(id)}
           style={cardStyles.btn}
           href="#"
