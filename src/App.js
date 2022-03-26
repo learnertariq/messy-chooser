@@ -6,8 +6,8 @@ import QnA from "./components/QnA";
 function App() {
   return (
     <div>
-      {/* <Header/>
-      <Main/> */}
+      <Header/>
+      <Main/>
       <QnA />
     </div>
   );
